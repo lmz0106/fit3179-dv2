@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aussie Weather Myths: A Data Visualisation</title>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Lato:wght@400;700&display=swap');
+
+    body {
+      font-family: 'Lato', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 2rem;
+    }
+    h1, h2, h3 {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+    }
+    /* Center the main content and limit width for readability */
+    .container {
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    /* Add styling and space to chart containers */
+    div[id^="vis"] {
+      margin-top: 1rem;
+      margin-bottom: 3rem;
+      padding: 1rem;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    footer {
+      font-size: 0.9em;
+      color: #666;
+      border-top: 1px solid #ddd;
+      padding-top: 1rem;
+    }
+    ul {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <h1>Aussie Weather Myths: What Does the Data Really Say?</h1>
+    <p>
+      It’s a classic Aussie debate: Melbourne’s weather is famously unpredictable, Sydney’s is mild and pleasant, and Brisbane is the undisputed sunshine capital. But how much of this is fact, and how much is just popular myth? This visualisation dives into the daily weather data from 2024 to uncover the truth behind the stereotypes for Australia's east coast rivals.
+    </p>
+
+    <h2>The Myth of the 'Wettest' City</h2>
+    <div id="vis1"></div>
+    <p>
+      First, let's look at the rain. The data here reveals a surprising twist. While Melbourne lives up to its reputation for having the most rainy days throughout the year, it’s actually Sydney that receives the highest total rainfall annually. This finding challenges the common belief about which city is truly the 'wettest'.
+    </p>
+
+    <h2>More Than Just Hot or Cold</h2>
+    <div id="vis2"></div>
+    <p>
+      When it comes to temperature, the story is more complex than just 'hot' or 'cold'. Hover over the cities on the map to see their average high and low temperatures for the year. This interaction reveals that the real story isn't just about averages, but about temperature consistency and range, helping to explain Melbourne's 'four seasons in one day' reputation.
+    </p>
+
+    <h2>Does Perfect Weather Mean More Visitors?</h2>
+    <div id="vis3"></div>
+    <p>
+      Does perfect weather guarantee a tourism boom? This chart plots the number of 'pleasant days' per quarter against the number of domestic tourists. While we can see a general trend, the connection isn't as direct as one might think. This suggests that factors beyond just a sunny day play a crucial role in attracting visitors to these major cities.
+    </p>
+    
+    <h3>Conclusion</h3>
+    <p>
+      In conclusion, the data confirms some long-held beliefs while busting others. Melbourne's weather is indeed more varied and sees more rainy days, but it is Sydney that gets the greater volume of rain. Ultimately, the story of a city's character is told in more than just its weather, as the complex relationship with tourism suggests. It seems our weather stereotypes are, much like the weather itself, not always as clear-cut as they seem.
+    </p>
+
+
+    <footer>
+      <hr>
+      <p><em>A visualisation by Meize Li, October 2025.</em></p>
+      <p><strong>Data Sources:</strong></p>
+      <ul>
+        <li>Weather data sourced from the Australian Bureau of Meteorology (BOM).</li>
+        <li>Domestic tourism data sourced from Tourism Research Australia (TRA), National Visitor Survey.</li>
+      </ul>
+    </footer>
+
+  </div>
+
+  <script type="text/javascript">
+    // Load Chart 1
+    const rainfallSpec = 'rainfall_chart.json';
+    vegaEmbed('#vis1', rainfallSpec);
+
+    // Load Chart 2
+    const mapSpec = 'map_chart.json';
+    vegaEmbed('#vis2', mapSpec);
+
+    // Load Chart 3
+    const correlationSpec = 'correlation_chart.json';
+    vegaEmbed('#vis3', correlationSpec);
+  </script>
+
+</body>
+</html>

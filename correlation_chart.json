@@ -1,0 +1,29 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Does Perfect Weather Mean More Visitors?",
+    "subtitle": "Comparing pleasant days vs. domestic trips for each quarter in 2023",
+    "anchor": "start"
+  },
+  "data": { "url": "weather_tourism_combined.csv" },
+  "mark": { "type": "point", "size": 100, "opacity": 0.8, "filled": true },
+  "encoding": {
+    "x": {
+      "field": "Pleasant_Days",
+      "type": "quantitative",
+      "axis": { "title": "Number of Pleasant Days per Quarter" }
+    },
+    "y": {
+      "field": "Trips_thousands",
+      "type": "quantitative",
+      "axis": { "title": "Domestic Trips ('000s)" }
+    },
+    "color": { "field": "City", "type": "nominal", "legend": { "title": "City" } },
+    "tooltip": [
+      { "field": "City", "type": "nominal" },
+      { "field": "Quarter", "type": "nominal" },
+      { "field": "Pleasant_Days", "type": "quantitative" },
+      { "field": "Trips_thousands", "type": "quantitative" }
+    ]
+  }
+}
