@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stereotypes vs Data Reality — Melbourne, Sydney & Brisbane</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  <style>
+    :root{
+      --ink:#222; --muted:#555; --note:#fafafa; --rule:#d0d0d0;
+      --brand:#1a73e8; --accent:#f58518; --primary:#4c78a8;
+      --max:960px;
+    }
+    html,body{margin:0;padding:0}
+    body{font-family: Georgia, "Times New Roman", serif; color:var(--ink); line-height:1.55; background:#fff}
+    header,main,footer{max-width:var(--max); margin:0 auto; padding:1.25rem}
+    h1,h2,h3{margin:1rem 0 .5rem}
+    h1{font-size:2rem} h2{font-size:1.6rem} h3{font-size:1.25rem}
+    p{margin:.5rem 0 1rem}
+    .section{margin:1.25rem 0 2rem}
+    .note{font-size:.95rem; color:#444; background:var(--note); border-left:4px solid var(--rule); padding:.75rem 1rem; margin:.5rem 0 1rem}
+    .vis{margin:.5rem 0 .75rem}
+    .caption{font-size:.9rem; color:var(--muted); margin:.25rem 0 1rem}
+    footer ul{padding-left:1.2rem}
+    footer a{color:var(--brand); text-decoration:none}
+    footer a:hover{text-decoration:underline}
+    .sr-only{position:absolute!important; width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>Stereotypes vs Data Reality — Melbourne, Sydney & Brisbane</h1>
+  <p>
+    We often hear simple weather stereotypes about Australian cities. This project contrasts those beliefs with recent data from the
+    Bureau of Meteorology (BOM) and a second source (Tourism Research Australia or Google Trends), focusing on three complementary
+    lenses: <em>intensity</em> (how much rain), <em>frequency</em> (how often it rains or is sunny), and <em>variability</em> (how stable temperatures are).
+  </p>
+
+  <p class="caption">
+    <strong>Executive summary.</strong> Interactive controls expose threshold sensitivity (e.g., what counts as a “rainy day”).
+    A map situates the cities and highlights temperature variability, while a second-source view compares <em>pleasant days</em> with activity/interest indicators.
+    Together, the visuals explain why perceptions can diverge from totals and why robust conclusions need all three lenses.
+  </p>
+</header>
+
+<main>
+
+  <section class="section" id="rainfall">
+    <h2>Rainfall vs. Rainy Days</h2>
+    <p class="note">
+      <strong>How to read:</strong> Orange = <em>total rainfall (mm)</em> — rain <strong>intensity</strong>.
+      Blue = <em>number of rainy days</em> — rain <strong>frequency</strong>.
+      Use the radio buttons (0.2 / 1 / 5&nbsp;mm) to see how rankings change when the definition of a “rainy day” changes.
+    </p>
+
+    <div id="vis1" class="vis" aria-label="Grouped bar chart comparing total rainfall and rainy days with a threshold toggle"></div>
+
+    <p class="caption">
+      <strong>Takeaway.</strong> The “wettest” city depends on the metric. A city can lead in <em>total rainfall</em> yet not in <em>rainy days</em>, or vice versa.
+      The threshold control lets you explore this sensitivity rather than relying on a single, fixed definition.
+    </p>
+  </section>
+
+  <section class="section" id="map">
+    <h2>Temperature Patterns Across Australia</h2>
+    <p class="note">
+      The map places the three cities for spatial context. Beyond means, what often shapes how weather feels is the <em>spread</em> and
+      <em>stability</em> across the year. (Projection uses <em>Equal Earth</em> for better area fidelity over Australia.)
+    </p>
+
+    <div id="vis2" class="vis" aria-label="Map locating the three cities with temperature summaries"></div>
+
+    <p class="caption">
+      <strong>Why it matters.</strong> Two cities with similar means can still feel very different if one shows a wider interquartile range (IQR) or more extremes.
+      Variability often drives comfort and the “four seasons in a day” perception.
+    </p>
+  </section>
+
+  <section class="section" id="correlation">
+    <h2>Weather and Tourism Correlation</h2>
+    <p class="note">
+      We relate <em>pleasant-weather days</em> (e.g., 20–27&nbsp;°C and no rain) to a second-source indicator of domestic interest/trips.
+      The dotted trend line summarises the overall direction. Remember: <strong>correlation ≠ causation</strong> and can be influenced by holidays, events and pricing.
+    </p>
+
+    <div id="vis3" class="vis" aria-label="Scatter plot comparing pleasant-weather days with tourism/search interest, with trend line"></div>
+
+    <p class="caption">
+      <strong>Reading the chart.</strong> Each point represents a quarter. If the line slopes upward, quarters with more pleasant days tend to coincide with higher activity —
+      but the strength and stability of this relationship can vary by city and season.
+    </p>
+  </section>
+
+  <section class="section">
+    <h3>Conclusion</h3>
+    <p>
+      Weather “truths” are multi-dimensional. Rather than asking which city is simply “better,” compare
+      <em>intensity</em> (rainfall in mm), <em>frequency</em> (how many rainy or sunny days) and <em>variability</em> (how wide the temperature range is).
+      With transparent definitions and simple controls, the charts let you test how robust each claim is — beyond the stereotype.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <h3>Data & Methods</h3>
+  <ul>
+    <li>Weather: <a href="https://www.bom.gov.au/climate/data/" target="_blank" rel="noopener">Bureau of Meteorology (BOM) — Climate Data</a></li>
+    <li>Tourism: <a href="https://www.tra.gov.au/" target="_blank" rel="noopener">Tourism Research Australia — National Visitor Survey</a></li>
+  </ul>
+  <p class="caption">
+    <strong>Definitions.</strong> “Rainy day” is user-selectable (0.2 / 1 / 5&nbsp;mm). “Pleasant day” here is 20–27&nbsp;°C &amp; no rain (configurable).
+    Variability is emphasised via median and IQR; extremes are noted in tooltips. Weather covers the most recent full year available; the second source uses matched or nearest quarters.
+    Processing: daily → monthly/quarterly aggregates; city-level grouping; missing data flagged or imputed conservatively.
+  </p>
+  <p class="caption">
+    <strong>Reproducibility & Performance.</strong> Charts are rendered with Vega-Lite and embedded responsively (<code>actions:false</code>, autosize-fit). Data files are kept small for web delivery; map geometry is simplified.
+  </p>
+  <p class="sr-only" aria-hidden="false">
+    Accessibility: colour-blind-friendly palette (blue for rainfall, orange for rainy days), clear axis units, and plain-text captions summarising each visual.
+  </p>
+</footer>
+
+<script>
+  const opts = { actions: false, renderer: "canvas" };
+  vegaEmbed('#vis1', 'rainfall_chart.json', opts);
+  vegaEmbed('#vis2', 'map_chart.json', opts);
+  vegaEmbed('#vis3', 'correlation_chart.json', opts);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Grouped bars: total rainfall vs number of rainy days (threshold toggle).",
+  "data": { "url": "weather_data_merged.csv" },
+
+  "params": [
+    {
+      "name": "rainThresh",
+      "value": 1,
+      "bind": {
+        "input": "radio",
+        "options": [0.2, 1, 5],
+        "labels": ["0.2mm", "1mm", "5mm"]
+      }
+    }
+  ],
+
+  "transform": [
+    { "calculate": "toNumber(datum.Rainfall) >= rainThresh ? 1 : 0", "as": "is_rainy_day" },
+    {
+      "aggregate": [
+        { "op": "sum", "field": "Rainfall", "as": "Total Rainfall (mm)" },
+        { "op": "sum", "field": "is_rainy_day", "as": "Number of Rainy Days" }
+      ],
+      "groupby": ["City"]
+    },
+    { "fold": ["Total Rainfall (mm)", "Number of Rainy Days"], "as": ["Metric", "Value"] }
+  ],
+
+  "mark": { "type": "bar" },
+
+  "encoding": {
+    "x": { "field": "City", "type": "nominal", "axis": { "title": "City" } },
+    "y": { "field": "Value", "type": "quantitative", "axis": { "title": null } },
+    "xOffset": { "field": "Metric" },
+    "color": {
+      "field": "Metric", "type": "nominal",
+      "legend": { "title": "Measurement" },
+      "scale": { "range": ["#4c78a8", "#f58518"] }
+    },
+    "tooltip": [
+      { "field": "City", "type": "nominal" },
+      { "field": "Metric", "type": "nominal" },
+      { "field": "Value", "type": "quantitative", "format": ".1f" }
+    ]
+  },
+
+  "title": {
+    "text": "Rainfall vs. Rainy Days: Debunking the Myths",
+    "subtitle": "Toggle rainy-day threshold to see intensity (mm) vs frequency (days)"
+  }
+}
